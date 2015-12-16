@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="row">
+    <div class="col-xs-12"><h1>Welcome!</h1>
+        <a href="{% url 'register' %}"<button class="btn btn-default" type="submit">Register</button></a>
+        <a href="{% url 'dashboard' %}"><button class="btn btn-default" type="submit">Login</button></a>
+    </div>
+</div>
+{% endblock %}
