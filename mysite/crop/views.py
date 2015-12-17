@@ -39,7 +39,7 @@ def job_view(request):
     # renew object list
     d = timedelta(minutes=30)
     timedout_objects = Image.objects.filter(block=True).filter(block_time__lt=timezone.now() - d)
-    timeout_objects.update(block=False)
+    timedout_objects.update(block=False)
     # retrieve random obj from img that has not been done yet
     available_list = Image.objects.filter(count=0).filter(block=False)
     random_idx = random.randint(1, available_list.count())
@@ -53,3 +53,14 @@ def job_view(request):
     img.save()
     # if not done, undo it, if done, create job object, add money 
     return render(request, 'job.html', {'title': title, 'img': img})
+
+
+def thankyou_view(request):
+    # save job object
+    user = request.user
+    done = True
+    # TODO! 
+    # unblock
+    img.block = False
+    # thank you
+    return render(request, 'thankyou.html', {'obj': obj})

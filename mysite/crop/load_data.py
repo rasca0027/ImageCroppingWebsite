@@ -1,8 +1,8 @@
 from django.core.management.base import BaseCommand, CommandError
-from crop.import_data import init_data
+from crop.import_data import load_data
 
 class Command(BaseCommand):
-    help = 'Init Data'
+    help = 'Check and load new data'
 
     def handle(self, *args, **options):
-        init_data()
+        load_data()
