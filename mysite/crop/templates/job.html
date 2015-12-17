@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load bootstrap %}
+
+{% block body %}
+
+<h1>{{ title }}</h1>
+    <p>Please crop the image to the size you think is the most beautiful! </p>
+    <img src="{{ img.url }}" width="800px" height="600px"> <br>
+
+    <button class="btn btn-default">Submit</button>
+
+{% endblock %}

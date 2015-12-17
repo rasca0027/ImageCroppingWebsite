@@ -22,5 +22,6 @@ urlpatterns = [
     url('^', include('django.contrib.auth.urls')),
     url(r'register/', register_view, name='register'),
     url(r'^dashboard/', dashboard_view, name='dashboard'),
+    url(r'job/', job_view, name='job'),
     url(r'^$', index_view),
 ]

@@ -17,6 +17,8 @@ class Image(models.Model):
     category = models.CharField(max_length=255, default='none')
     url = models.URLField()
     crops = models.TextField(blank=True)
+    block = models.BooleanField(default=False)
+    block_time = models.DateTimeField(null=True)
 
     def __unicode__(self):
         return self.photo_id
@@ -28,6 +30,7 @@ class Job(models.Model):
     done = models.BooleanField(default=False)
     user = models.ForeignKey(Worker, blank=True)
     image = models.ManyToManyField(Image, null=False)
+    pay = models.FloatField(default='0.25')
 
     def __unicode__(self):
         return self.title
