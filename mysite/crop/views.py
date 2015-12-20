@@ -83,14 +83,23 @@ def thankyou_view(request):
     else:
         return render(request, 'thankyou.html', {})
 
-def no_crop(request):
+def no_crop(request, photo_id):
     # save job object
     user = request.user
-    done = True
-    # TODO! 
+    image = Image.objects.get(photo_id=photo_id)
+    title = "Crop Job-" + str(photo_id)
+    pay = 1 # TODO!
+    job = Job(title=title, done=True, user=user, pay=pay)
+    job.save()
+    job.image.add(image)
+    crops = Crop(img=image, worker=user, need_crop=False)
+    crops.save()
+    # add money
+    user.money += pay
+    user.save()
     # unblock
-    img.block = False
-    # thank you
-    return render(request, 'thankyou.html', {'img': obj})
+    image.block = False
+    image.save()
+    return render(request, 'thankyou.html', {})
 
 

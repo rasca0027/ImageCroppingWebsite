@@ -57,10 +57,10 @@
         var URL = {% url 'thanks' %};
         $.post(URL, data, function(response){
                             if(response === 'success'){ 
-                                alert('Yay!'); 
+                                //alert('Yay!'); 
                                 window.location.href = {% url 'thanks' %};
                             } else{ 
-                                alert('Error! :('); }
+                                console.log('Error! :('); }
         }); 
 
     }
@@ -76,7 +76,7 @@
     <img id="photo" src="{{ img.url }}" width="800px" height="600px"> <br>
 
 
-    <a href="{% url 'no_crop' %}"><button class="btn btn-default">No Crop</button></a>
+    <a href="{% url 'no_crop' img.photo_id %}"><button class="btn btn-default">No Crop</button></a>
     <a href="#"><button class="btn btn-default" onclick="sendData()">Submit</button></a>
 
 {% endblock %}
