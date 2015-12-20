@@ -1,8 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from .forms import *
-from .models import Job, Image
+from .models import Job, Image, Crop
 from django.utils import timezone
 import random
 from datetime import timedelta
@@ -56,6 +56,34 @@ def job_view(request):
 
 
 def thankyou_view(request):
+    if request.method == "POST":
+        x1 = request.POST['x1']
+        y1 = request.POST['y1']
+        height = request.POST['height']
+        width = request.POST['width']
+        # save job object
+        user = request.user
+        photo_id = request.POST['photo_id']
+        image = Image.objects.get(photo_id=photo_id)
+        title = "Crop Job-" + str(photo_id)
+        pay = 3 # TODO!
+        job = Job(title=title, done=True, user=user, pay=pay)
+        job.save()
+        job.image.add(image)
+        crops = Crop(img=image, worker=user, need_crop=True,
+                x1=x1, y1=y1, width=width, height=height)
+        crops.save()
+        # add money
+        user.money += pay
+        user.save()
+        # unblock
+        image.block = False
+        image.save()
+        return HttpResponse('success')
+    else:
+        return render(request, 'thankyou.html', {})
+
+def no_crop(request):
     # save job object
     user = request.user
     done = True
@@ -63,4 +91,6 @@ def thankyou_view(request):
     # unblock
     img.block = False
     # thank you
-    return render(request, 'thankyou.html', {'obj': obj})
+    return render(request, 'thankyou.html', {'img': obj})
+
+

@@ -6,6 +6,21 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/imgareaselect-default.css' %}" />
 <script type="text/javascript" src="{% static 'js/jquery.imgareaselect.pack.js' %}"></script>
 <script type="text/javascript">
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
     $(document).ready(function () {
         $('img#photo').imgAreaSelect({
             handles: true,
@@ -14,9 +29,41 @@
                             console.log(selection.height);
                             console.log(selection.x1);
                             console.log(selection.y1);
-                         }
+                            width = selection.width;
+                            height = selection.height;
+                            x1 = selection.x1;
+                            y1 = selection.y1;
+                        }
         });
     });
+    function csrfSafeMethod(method) {
+       // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    function sendData(){
+        var csrftoken = getCookie('csrftoken');
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+        var data = { 'width': width,
+                     'height': height,
+                     'x1': x1,
+                     'y1': y1,
+                     'photo_id': {{ img.photo_id }} };
+        var URL = {% url 'thanks' %};
+        $.post(URL, data, function(response){
+                            if(response === 'success'){ 
+                                alert('Yay!'); 
+                                window.location.href = {% url 'thanks' %};
+                            } else{ 
+                                alert('Error! :('); }
+        }); 
+
+    }
 </script>
 {% endblock %}
 
@@ -25,8 +72,11 @@
 
 <h1>{{ title }}</h1>
     <p>Please crop the image to the size you think is the most beautiful! </p>
+    <p> If there is no need to crop, press No Need button </p>
     <img id="photo" src="{{ img.url }}" width="800px" height="600px"> <br>
 
-    <a href="{% url 'thanks' %}"><button class="btn btn-default">Submit</button></a>
+
+    <a href="{% url 'no_crop' %}"><button class="btn btn-default">No Crop</button></a>
+    <a href="#"><button class="btn btn-default" onclick="sendData()">Submit</button></a>
 
 {% endblock %}
