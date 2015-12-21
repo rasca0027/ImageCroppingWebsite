@@ -19,7 +19,7 @@ from crop.views import *
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url('^', include('django.contrib.auth.urls')),
+    url('^accounts/', include('django.contrib.auth.urls')),
     url(r'register/', register_view, name='register'),
     url(r'^dashboard/', dashboard_view, name='dashboard'),
     url(r'job/', job_view, name='job'),
