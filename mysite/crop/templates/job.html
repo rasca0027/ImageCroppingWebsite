@@ -73,7 +73,7 @@
 <h1>{{ title }}</h1>
     <p>Please crop the image to the size you think is the most beautiful! </p>
     <p> If there is no need to crop, press No Need button </p>
-    <img id="photo" src="{{ img.url }}" width="800px"> <br>
+    <img id="photo" src="{{ img.url }}" style="max-width: 800px; max-height: 800px;"> <br>
 
 
     <a href="{% url 'no_crop' img.photo_id %}"><button class="btn btn-default">No Crop</button></a>
