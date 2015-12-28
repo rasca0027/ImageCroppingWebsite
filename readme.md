@@ -20,4 +20,22 @@ If you do not want to refresh, just want to load new, use:
 
 ## Run Server
 
-    python manage.py runserver 
+    python manage.py runserver
+
+
+## Manual
+
+To change default money value for cropping jobs,  
+change the amount in `crop/views.py`, on line 74 (for cropping) and line 100 (for no crop).  
+
+To login to superuser, do `python manage.py createsuperuser` and login to `localhost:8000/admin`.  
+
+
+## Change A New DB
+
+just replace your pkl file.  
+Then run:
+
+    python manage.py load_data
+
+This command will check DB and will not update values.
