@@ -16,7 +16,9 @@ def register_view(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             # process the data in form.cleaned_data as required
-            worker = form.save()
+            worker = form.save(commit=False)
+            worker.set_password(form.cleaned_data["password"])
+            worker.save()
             # redirect to a new URL:
             return HttpResponseRedirect('/dashboard/')
     # if a GET (or any other method) we'll create a blank form

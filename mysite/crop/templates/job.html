@@ -71,12 +71,16 @@
 {% block body %}
 
 <h1>{{ title }}</h1>
-    <p>Please crop the image to the size you think is the most beautiful! </p>
-    <p> If there is no need to crop, press No Need button </p>
+    <p>請問您認為下圖是否能夠透過框選局部區域，以改善其構圖？</p>
+    <p> 若您回答「是」，請直接在下圖中，以滑鼠框選出您認為構圖最佳的區域；<br>
+     若您回答「否」，本任務即告結束。</p>
+    
+    <a href="{% url 'no_crop' img.photo_id %}"><button class="btn btn-default">No Crop</button></a>
+    <a href="#photo"><button class="btn btn-default">Yes</button></a> <br><br>
+
     <img id="photo" src="{{ img.url }}" style="max-width: 800px; max-height: 800px;"> <br>
 
 
-    <a href="{% url 'no_crop' img.photo_id %}"><button class="btn btn-default">No Crop</button></a>
     <a href="#"><button class="btn btn-default" onclick="sendData()">Submit</button></a>
 
 {% endblock %}

@@ -44,9 +44,9 @@ class ApiUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = MyUserChangeForm
     list_display = ('username', 'email')
-    fieldsets = UserAdmin.fieldsets + (
-        (None, {'fields': ('money')}),
-    )
+    fieldsets = UserAdmin.fieldsets# + (
+    #    (None, {'fields': ('money')}),
+    #)
 
 
 admin.site.register(Image)
