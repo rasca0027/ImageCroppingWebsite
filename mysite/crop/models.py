@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
 
 class Worker(AbstractUser):
     
@@ -42,6 +43,8 @@ class Job(models.Model):
     user = models.ForeignKey(Worker, blank=True)
     image = models.ManyToManyField(Image, null=False)
     pay = models.FloatField(default='3')
+    start_time = models.DateTimeField(null=True)
+    end_time = models.DateTimeField(null=True)
 
     def __unicode__(self):
         return self.title

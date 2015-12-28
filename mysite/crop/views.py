@@ -54,8 +54,9 @@ def job_view(request):
     img.block_time = timezone.now()
     img.save()
     # if not done, undo it, if done, create job object, add money 
-    return render(request, 'job.html', {'title': title, 'img': img})
-
+    resp = render(request, 'job.html', {'title': title, 'img': img})
+    resp.set_cookie('start_time', timezone.now())
+    return resp
 
 def thankyou_view(request):
     if request.method == "POST":
@@ -66,10 +67,13 @@ def thankyou_view(request):
         # save job object
         user = request.user
         photo_id = request.POST['photo_id']
+        start_time = request.COOKIES.get('start_time')
+        end_time = timezone.now()
         image = Image.objects.get(photo_id=photo_id)
         title = "Crop Job-" + str(photo_id)
         pay = 3 # TODO!
-        job = Job(title=title, done=True, user=user, pay=pay)
+        job = Job(title=title, done=True, user=user, pay=pay,
+                start_time=start_time, end_time=end_time)
         job.save()
         job.image.add(image)
         crops = Crop(img=image, worker=user, need_crop=True,
@@ -89,12 +93,16 @@ def no_crop(request, photo_id):
     # save job object
     user = request.user
     image = Image.objects.get(photo_id=photo_id)
+    start_time = request.COOKIES.get('start_time')
+    print start_time
+    end_time = timezone.now()
     title = "Crop Job-" + str(photo_id)
     pay = 1 # TODO!
-    job = Job(title=title, done=True, user=user, pay=pay)
+    job = Job(title=title, done=True, user=user, pay=pay,
+            start_time=start_time, end_time=end_time)
     job.save()
     job.image.add(image)
-    crops = Crop(img=image, worker=user, need_crop=False)
+    crops = Crop(img=image, worker=user, need_crop=False) 
     crops.save()
     # add money
     user.money += pay
