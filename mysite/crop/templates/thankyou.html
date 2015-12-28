@@ -3,9 +3,12 @@
 
 {% block body %}
 
-    Thank you for doing job ! <br>
-    You do another job or return to dashboard! <br>
-    <a href="{% url 'dashboard' %}"><button class="btn btn-default">I'm Done!</button></a>
-    <a href="{% url 'job' %}"><button class="btn btn-default">Do Another Job</button></a>
-
+    <h1>謝謝您!</h1>
+    <hr>
+    <p>感謝您寶貴的時間!</p>
+    <p>您可以選擇跳到下一個任務，或是回到資訊頁面。</p>
+    <p>
+    <a href="{% url 'job' %}"><button class="btn btn-default">Go to the next job.</button></a>
+    <a href="{% url 'dashboard' %}"><button class="btn btn-default">I'm done!</button></a>
+    </p>
 {% endblock %}

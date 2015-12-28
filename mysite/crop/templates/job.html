@@ -56,10 +56,10 @@
                      'photo_id': {{ img.photo_id }} };
         var URL = {% url 'thanks' %};
         $.post(URL, data, function(response){
-                            if(response === 'success'){ 
+                            if (response === 'success') { 
                                 //alert('Yay!'); 
                                 window.location.href = {% url 'thanks' %};
-                            } else{ 
+                            } else { 
                                 console.log('Error! :('); }
         }); 
 
@@ -72,15 +72,20 @@
 
 <h1>{{ title }}</h1>
     <p>請問您認為下圖是否能夠透過框選局部區域，以改善其構圖？</p>
-    <p> 若您回答「是」，請直接在下圖中，以滑鼠框選出您認為構圖最佳的區域；<br>
-     若您回答「否」，本任務即告結束。</p>
+    <p>若您認為下圖構圖完善，不須截圖，請點擊以下按鈕，本任務即告結束。</p>
+    <p><a href="{% url 'no_crop' img.photo_id %}"><button class="btn btn-default">No, it does not need a crop!</button></a></p>
+    <br>
+    <p>若您下圖構圖有欠佳之處，請直接在下圖中，以滑鼠框選出您認為構圖最佳的區域，並於完成後點擊圖下方按鈕。</p>
     
-    <a href="{% url 'no_crop' img.photo_id %}"><button class="btn btn-default">No Crop</button></a>
-    <a href="#photo"><button class="btn btn-default">Yes</button></a> <br><br>
+    <!--<a href="#photo"><button class="btn btn-default">Yes</button></a> <br><br>-->
+    <p><img id="photo" src="{{ img.url }}" style="max-width: 800px; max-height: 800px;"></p>
+    <p><a href="#"><button class="btn btn-default" onclick="sendData()">Yes, it looks better with this window!</button></a></p>
 
-    <img id="photo" src="{{ img.url }}" style="max-width: 800px; max-height: 800px;"> <br>
+    <p>或是您也可以選擇不作答。欲跳過本任務，請點擊以下按鈕。</p>
+    <p><a href="#photo"><button class="btn btn-default">I'm not sure about this...</button></a></p>
 
-
-    <a href="#"><button class="btn btn-default" onclick="sendData()">Submit</button></a>
+    <br>
+    <p>說明：若本任務的圖片，經您判定不須截圖，我們將給予您NT1的酬金。</p>
+    <p>若本任務的圖片，經您判定需要截圖，並框選出構圖最佳區域，我們將給予您NT3的酬金。</p>
 
 {% endblock %}
