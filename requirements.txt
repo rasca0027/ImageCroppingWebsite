@@ -1,2 +1,4 @@
 django==1.8.5
 django-bootstrap-form==3.2
+Pillow
+requests

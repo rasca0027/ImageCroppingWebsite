@@ -6,6 +6,8 @@
     source env/bin/activate
     pip install -r requirements.txt
 
+If encounter problems, try `sudo apt-get install libjpeg-dev` and install again.
+
 ## Initialize
 
     python manage.py migrate

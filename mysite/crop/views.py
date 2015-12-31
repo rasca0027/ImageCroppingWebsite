@@ -76,8 +76,10 @@ def thankyou_view(request):
                 start_time=start_time, end_time=end_time)
         job.save()
         job.image.add(image)
+        photo_url = Image.objects.get(photo_id=photo_id).url
+        rx1, ry1, rw, rh = recover_size(x1, y1, width, height, photo_url)
         crops = Crop(img=image, worker=user, need_crop=True,
-                x1=x1, y1=y1, width=width, height=height)
+                x1=rx1, y1=ry1, width=rw, height=rh)
         crops.save()
         # add money
         user.money += pay
@@ -112,4 +114,24 @@ def no_crop(request, photo_id):
     image.save()
     return render(request, 'thankyou.html', {'pay': pay})
 
+
+def recover_size(x1, y1, w, h, url):
+    from .get_size import get_image_size
+    rwidth, rheight = get_image_size(url)
+    if rwidth < 800 and rheight < 800:
+        return x1, y1, w, h
+    elif rwidth > 800:
+        scale = rwidth / (800 + 0.0)
+        rx1 = x1 * scale
+        ry1 = y1 * scale
+        rh = h * scale
+        rw = w * scale
+        return rx1, ry1, rw, rh 
+    elif rheight > 800:
+        scale = rheight / (800 + 0.0)
+        rx1 = x1 * scale
+        ry1 = y1 * scale
+        rh = h * scale
+        rw = w * scale
+        return rx1, ry1, rw, rh 
 
