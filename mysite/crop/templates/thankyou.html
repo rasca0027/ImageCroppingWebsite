@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 {% load bootstrap %}
 
-{% block body %}
+{% block bg %}grey{% endblock %}
 
-    Thank you for doing job ! <br>
-    You do another job or return to dashboard! <br>
+{% block body %}
+    <img src="http://monsterthankyou.co.uk/wp-content/uploads/2014/04/ThankYou-71.jpg" width="400px" style="margin-top:30px;">
+    <p id="thankyoutext">Thank you for doing this job! <br>
+    You earned {{ pay }} from this job. <br>
+    You do another job or return to dashboard! <br></p>
     <a href="{% url 'dashboard' %}"><button class="btn btn-default">I'm Done!</button></a>
-    <a href="{% url 'job' %}"><button class="btn btn-default">Do Another Job</button></a>
+    <a href="{% url 'job' %}" style="margin-left: 10px;"><button class="btn btn-default">Do Another Job</button></a>
 
 {% endblock %}

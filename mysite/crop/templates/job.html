@@ -11,7 +11,7 @@
         if (document.cookie && document.cookie != '') {
             var cookies = document.cookie.split(';');
             for (var i = 0; i < cookies.length; i++) {
-                var cookie = jQuery.trim(cookies[i]);
+                var cookie =     jQuery.trim(cookies[i]);
                 // Does this cookie string begin with the name we want?
                 if (cookie.substring(0, name.length + 1) == (name + '=')) {
                     cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
@@ -22,6 +22,7 @@
         return cookieValue;
     }
     $(document).ready(function () {
+        
         $('img#photo').imgAreaSelect({
             handles: true,
             onSelectEnd: function (img, selection) {
@@ -33,6 +34,7 @@
                             height = selection.height;
                             x1 = selection.x1;
                             y1 = selection.y1;
+
                         }
         });
     });
@@ -41,6 +43,12 @@
         return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
     }
     function sendData(){
+        if (typeof x1 === 'undefined'){
+            alert('you have to select area first! ');
+        } else if (width == 0 && height == 0){
+            alert('you have to select a valid area!');
+        } else {
+
         var csrftoken = getCookie('csrftoken');
         $.ajaxSetup({
             beforeSend: function(xhr, settings) {
@@ -62,25 +70,27 @@
                             } else{ 
                                 console.log('Error! :('); }
         }); 
-
+        }
     }
 </script>
 {% endblock %}
 
+{% block bg %}white{% endblock %}
+
 
 {% block body %}
 
-<h1>{{ title }}</h1>
-    <p>請問您認為下圖是否能夠透過框選局部區域，以改善其構圖？</p>
+<h1 style="margin-bottom: 40px;">{{ title }}</h1>
+<p><b>請問您認為下圖是否能夠透過框選局部區域，以改善其構圖？</b></p>
     <p> 若您回答「是」，請直接在下圖中，以滑鼠框選出您認為構圖最佳的區域；<br>
      若您回答「否」，本任務即告結束。</p>
     
-    <a href="{% url 'no_crop' img.photo_id %}"><button class="btn btn-default">No Crop</button></a>
+    <a href="{% url 'no_crop' img.photo_id %}"><button style="margin-right: 40px;" class="btn btn-default">No Crop</button></a>
     <a href="#photo"><button class="btn btn-default">Yes</button></a> <br><br>
 
     <img id="photo" src="{{ img.url }}" style="max-width: 800px; max-height: 800px;"> <br>
 
 
-    <a href="#"><button class="btn btn-default" onclick="sendData()">Submit</button></a>
+    <a href="#"><button class="btn btn-success" onclick="sendData()">Submit</button></a>
 
 {% endblock %}

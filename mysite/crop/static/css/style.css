@@ -1,0 +1,46 @@
+h1 {
+    text-align: center;
+}
+
+.cover {
+    background-image: url("https://scontent-hkg3-1.xx.fbcdn.net/hphotos-xpa1/t31.0-8/12308002_10207136451546892_4656326934129771018_o.jpg");
+    background-position: center top;
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    text-align: center;
+}
+
+.grey {
+    background-color: #DFF0D8;
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+}
+
+#intro {
+    font-size: 20px;
+    padding-top: 40px;
+    padding-bottom: 30px;
+}
+
+.btn-default {
+    font-size: 16px;
+    border-radius: 15px;
+}
+
+.white {
+    text-align:center;
+}
+
+.btn-success {
+    font-size: 24px;
+    border-radius: 15px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+#thankyoutext {
+    margin-top: 30px;
+    font-size: 24px;
+}

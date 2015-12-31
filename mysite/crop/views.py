@@ -87,7 +87,7 @@ def thankyou_view(request):
         image.save()
         return HttpResponse('success')
     else:
-        return render(request, 'thankyou.html', {})
+        return render(request, 'thankyou.html', {'pay': pay})
 
 def no_crop(request, photo_id):
     # save job object
@@ -110,6 +110,6 @@ def no_crop(request, photo_id):
     # unblock
     image.block = False
     image.save()
-    return render(request, 'thankyou.html', {})
+    return render(request, 'thankyou.html', {'pay': pay})
 
 

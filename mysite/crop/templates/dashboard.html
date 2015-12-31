@@ -1,15 +1,17 @@
 {% extends "base.html" %}
 {% load bootstrap %}
 
-{% block body %}
+{% block bg %}grey{% endblock %}
 
+{% block body %}
+    <p id="intro">
     Hi, {{ user.username }}! <br>
     You have done {{ jobs_done }} jobs already! <br>
     You have earned ${{ user.money }} already! <br>
-    Keep up the good work!
+    Keep up the good work! </p>
     <a href="{% url 'job' %}"><button class="btn btn-default">Do Another Job</button></a>
     
-    <a href="/accounts/logout/?next=/"><button class="btn btn-default">Log Out</button></a>
+    <a href="/accounts/logout/?next=/"><button class="btn btn-default" style="margin-left:10px">Log Out</button></a>
 
 
 {% endblock %}
