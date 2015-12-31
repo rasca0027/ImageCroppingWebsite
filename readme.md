@@ -39,3 +39,10 @@ Then run:
     python manage.py load_data
 
 This command will check DB and will not update values.
+
+
+## Dump DB to report
+
+    python manage.py report
+
+This will create a pkl file in project directory named `report.pkl`.
