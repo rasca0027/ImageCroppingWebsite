@@ -82,15 +82,23 @@
 
 <h1 style="margin-bottom: 40px;">{{ title }}</h1>
 <p><b>請問您認為下圖是否能夠透過框選局部區域，以改善其構圖？</b></p>
-    <p> 若您回答「是」，請直接在下圖中，以滑鼠框選出您認為構圖最佳的區域；<br>
-     若您回答「否」，本任務即告結束。</p>
+    <p> 若您認為下圖構圖完善，不須截圖，請點擊以下按鈕，本任務即告結束。</p>
     
-    <a href="{% url 'no_crop' img.photo_id %}"><button style="margin-right: 40px;" class="btn btn-default">No Crop</button></a>
-    <a href="#photo"><button class="btn btn-default">Yes</button></a> <br><br>
+    <a href="{% url 'no_crop' img.photo_id %}">
+        <button style="margin-right: 40px;" class="btn btn-default">No, it does not need a crop!</button>
+    </a>
+    <!--<a href="#photo"><button class="btn btn-default">Yes</button></a>--> 
+    <br><br>
 
     <img id="photo" src="{{ img.url }}" style="max-width: 800px; max-height: 800px;"> <br>
 
 
-    <a href="#"><button class="btn btn-success" onclick="sendData()">Submit</button></a>
+    <a href="#"><button class="btn btn-success" onclick="sendData()">Yes, it looks better with this window!</button></a>
+    <p>或是您也可以選擇不作答。欲跳過本任務，請點擊以下按鈕。</p>
+    <a href="#photo"><button class="btn btn-default">I'm not sure about this...</button></a>
+
+    <br>
+    <p>說明：若本任務的圖片，經您判定不須截圖，我們將給予您NT1的酬金。<br>
+    若本任務的圖片，經您判定需要截圖，並框選出構圖最佳區域，我們將給予您NT3的酬金。</p>
 
 {% endblock %}

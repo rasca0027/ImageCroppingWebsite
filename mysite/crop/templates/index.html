@@ -5,9 +5,22 @@
 
 {% block body %}
 <div class="row">
-    <div class="col-xs-12"><h1 style="margin-bottom: 50px;">Welcome!</h1>
+    <div class="col-md-8 col-md-offset-2" id="indexdiv"><h1 style="margin-bottom: 22px;">Welcome!</h1>
+        <p class="indextext">
+        您好，歡迎您使用本網站。<br>
+        我們是一批喜愛攝影的研究人員，本網站是為了建立一Photo cropping dataset而成立。<br>
+        目的有二，其一是提供電腦科學家利用機器學習方法，研發具有自動判斷影像中構圖良好區域演算法時，所需之訓練資料。
+        其二是，作為比較同類型演算法效能優劣之評斷標準。
+        在我們第一階段的工作中，我們已在Flickr上抓取了大量的照片，並經過一輪初步的篩選，過濾掉不適用的圖片。
+        在本階段工作中，我們將邀請具有攝影美學素養的使用者，共同為影像標記有用的資訊。<br>
+        本dataset蒐集建立完成後，將完全開放給學術與工業界使用。您的時間與心血，將有機會為人類探索未知知識領域帶來極大貢獻！<br>
+        若您和我們一樣，對攝影抱有熱情，請助我們一臂之力！
+        </p>
         <a href="{% url 'register' %}"<button class="btn btn-default" type="submit" style="margin-right: 10px;">Register</button></a>
         <a href="{% url 'dashboard' %}"><button class="btn btn-default" type="submit">Login</button></a>
+        <p style="color:blue; font-size: 10px;">
+        若您尚未擁有帳號，請點按Register按鈕進行註冊。若您已經註冊，請直接登入。
+        </p>
     </div>
 </div>
 {% endblock %}

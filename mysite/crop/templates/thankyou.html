@@ -5,9 +5,9 @@
 
 {% block body %}
     <img src="http://monsterthankyou.co.uk/wp-content/uploads/2014/04/ThankYou-71.jpg" width="400px" style="margin-top:30px;">
-    <p id="thankyoutext">Thank you for doing this job! <br>
-    You earned {{ pay }} from this job. <br>
-    You do another job or return to dashboard! <br></p>
+    <p id="thankyoutext">
+    感謝您寶貴的時間! <br>
+    您可以選擇跳到下一個任務，或是回到資訊頁面。 <br></p>
     <a href="{% url 'dashboard' %}"><button class="btn btn-default">I'm Done!</button></a>
     <a href="{% url 'job' %}" style="margin-left: 10px;"><button class="btn btn-default">Do Another Job</button></a>
 
