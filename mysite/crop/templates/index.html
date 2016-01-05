@@ -5,8 +5,9 @@
 
 {% block body %}
 <div class="row">
-    <div class="col-md-8 col-md-offset-2" id="indexdiv"><h1 style="margin-bottom: 22px;">Welcome!</h1>
-
+    <div class="col-md-8 col-md-offset-2" id="indexdiv">
+        <h1 style="margin-bottom: 22px;">Welcome!</h1>
+        <hr>
         <p class="indextext">您好，歡迎您使用本網站。</p>
         <p class="indextext">我們是一批喜愛攝影的研究人員，本網站是為了建立一Photo cropping dataset而成立。</p>
         <p class="indextext">目的有二，其一是提供電腦科學家利用機器學習方法，研發具有自動判斷影像中構圖良好區域演算法時，所需之訓練資料。</p>
@@ -20,7 +21,7 @@
         <a href="{% url 'register' %}"><button class="btn btn-default" type="submit" style="margin-right: 10px;">Register</button></a>
         <!--<a href="{% url 'register' %}"<button class="btn btn-default" type="submit">Register</button></a>-->
         <a href="{% url 'dashboard' %}"><button class="btn btn-default" type="submit">Login</button></a>
-        <p style="color:blue; font-size: 10px;">
+        <p style="color:blue; font-size: 12px;">
         若您尚未擁有帳號，請點按Register按鈕進行註冊。若您已經註冊，請直接登入。
         </p>
     </div>

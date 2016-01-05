@@ -3,9 +3,10 @@ from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
 
 class Worker(AbstractUser):
-    
     money = models.FloatField(default=0)
-    
+    none_crop_job_count = models.PositiveIntegerField(default=0)
+    crop_job_count = models.PositiveIntegerField(default=0)
+
     def __unicode__(self):
         return self.username
 
@@ -27,7 +28,7 @@ class Crop(models.Model):
     img = models.ForeignKey(Image)
     worker = models.ForeignKey(Worker)
     need_crop = models.BooleanField(default=True)
-    x1 = models.IntegerField(null=True) 
+    x1 = models.IntegerField(null=True)
     y1 = models.IntegerField(null=True)
     width = models.IntegerField(null=True)
     height = models.IntegerField(null=True)
@@ -37,7 +38,6 @@ class Crop(models.Model):
 
 
 class Job(models.Model):
-
     title = models.CharField(max_length=255, blank=True)
     done = models.BooleanField(default=False)
     user = models.ForeignKey(Worker, blank=True)

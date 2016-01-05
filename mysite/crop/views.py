@@ -33,7 +33,8 @@ def dashboard_view(request):
     user = request.user
     jobs = Job.objects.filter(user=user)
     counts = len(jobs)
-    return render(request, 'dashboard.html', {'user': user, 'jobs_done': counts})
+    total_pay = user.crop_job_count * 5 + user.none_crop_job_count * 1
+    return render(request, 'dashboard.html', {'user': user, 'jobs_done': counts, 'pay': total_pay})
 
 
 @login_required
@@ -84,6 +85,7 @@ def thankyou_view(request):
         crops.save()
         # add money
         user.money += pay
+        user.crop_job_count += 1
         user.save()
         # unblock
         image.block = False
@@ -109,6 +111,7 @@ def no_crop(request, photo_id):
     crops.save()
     # add money
     user.money += pay
+    user.none_crop_job_count += 1
     user.save()
     # unblock
     image.block = False
