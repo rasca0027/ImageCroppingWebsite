@@ -47,13 +47,13 @@ def job_view(request):
     random_idx = random.randint(1, available_list.count())
     img = available_list[random_idx]
     # render the job page
-    title = 'image-cropping-' + str(img.photo_id) 
+    title = 'image-cropping-' + str(img.photo_id)
     # block the process, record order time
     img.count += 1
     img.block = True
     img.block_time = timezone.now()
     img.save()
-    # if not done, undo it, if done, create job object, add money 
+    # if not done, undo it, if done, create job object, add money
     resp = render(request, 'job.html', {'title': title, 'img': img})
     resp.set_cookie('start_time', timezone.now())
     return resp
@@ -71,7 +71,7 @@ def thankyou_view(request):
         end_time = timezone.now()
         image = Image.objects.get(photo_id=photo_id)
         title = "Crop Job-" + str(photo_id)
-        pay = 3 # TODO!
+        pay = 5 # TODO!
         job = Job(title=title, done=True, user=user, pay=pay,
                 start_time=start_time, end_time=end_time)
         job.save()
@@ -104,7 +104,7 @@ def no_crop(request, photo_id):
             start_time=start_time, end_time=end_time)
     job.save()
     job.image.add(image)
-    crops = Crop(img=image, worker=user, need_crop=False) 
+    crops = Crop(img=image, worker=user, need_crop=False)
     crops.save()
     # add money
     user.money += pay
@@ -126,12 +126,12 @@ def recover_size(x1, y1, w, h, url):
         ry1 = y1 * scale
         rh = h * scale
         rw = w * scale
-        return rx1, ry1, rw, rh 
+        return rx1, ry1, rw, rh
     elif rheight > 800:
         scale = rheight / (800 + 0.0)
         rx1 = x1 * scale
         ry1 = y1 * scale
         rh = h * scale
         rw = w * scale
-        return rx1, ry1, rw, rh 
+        return rx1, ry1, rw, rh
 
