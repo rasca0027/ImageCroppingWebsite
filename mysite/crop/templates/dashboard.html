@@ -10,9 +10,7 @@
     您總共已完成 {{ jobs_done }} 個任務! <br>
     您目前的酬金結算為 NT ${{ user.money }} 元。 <br>
     請選擇您的下一個動作。</p>
-    <a href="{% url 'job' %}"><button class="btn btn-default">Do Another Job</button></a>
-    
+    <a href="{% url 'job' %}"><button class="btn btn-default">Go to the next job.</button></a>
     <a href="/accounts/logout/?next=/"><button class="btn btn-default" style="margin-left:10px">Log Out</button></a>
-
 
 {% endblock %}
