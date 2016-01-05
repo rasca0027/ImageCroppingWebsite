@@ -77,6 +77,7 @@ def thankyou_view(request):
         job.save()
         job.image.add(image)
         photo_url = Image.objects.get(photo_id=photo_id).url
+        print photo_url
         rx1, ry1, rw, rh = recover_size(x1, y1, width, height, photo_url)
         crops = Crop(img=image, worker=user, need_crop=True,
                 x1=rx1, y1=ry1, width=rw, height=rh)
@@ -118,20 +119,22 @@ def no_crop(request, photo_id):
 def recover_size(x1, y1, w, h, url):
     from .get_size import get_image_size
     rwidth, rheight = get_image_size(url)
-    if rwidth < 800 and rheight < 800:
-        return x1, y1, w, h
+    print 'types:',type(rwidth), type(rheight)
+    if rwidth <= 800 and rheight <= 800:
+        return int(x1), int(y1), int(w), int(h)
     elif rwidth > 800:
         scale = rwidth / (800 + 0.0)
-        rx1 = x1 * scale
-        ry1 = y1 * scale
-        rh = h * scale
-        rw = w * scale
+        rx1 = int(x1) * scale
+        ry1 = int(y1) * scale
+        rh = int(h) * scale
+        rw = int(w) * scale
         return rx1, ry1, rw, rh
     elif rheight > 800:
         scale = rheight / (800 + 0.0)
-        rx1 = x1 * scale
-        ry1 = y1 * scale
-        rh = h * scale
-        rw = w * scale
+        print 'x1', x1, type(x1)
+        rx1 = int(x1) * scale
+        ry1 = int(y1) * scale
+        rh = int(h) * scale
+        rw = int(w) * scale
         return rx1, ry1, rw, rh
 

@@ -38,6 +38,11 @@
                         }
         });
     });
+
+    function reloadPage(){
+        window.location.href = {% url 'job' %};
+    }
+
     function csrfSafeMethod(method) {
        // these HTTP methods do not require CSRF protection
         return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
@@ -94,7 +99,7 @@
 
     <a href="#"><button class="btn btn-success" onclick="sendData()">Yes, it looks better with this window!</button></a>
     <p>或是您也可以選擇不作答。欲跳過本任務，請點擊以下按鈕。</p>
-    <a href="#photo"><button class="btn btn-default">I'm not sure about this...</button></a>
+    <a href="#photo"><button class="btn btn-default" onclick="reloadPage()">I'm not sure about this...</button></a>
 
     <br>
     <br>
