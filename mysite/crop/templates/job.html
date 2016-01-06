@@ -53,6 +53,9 @@
         } else if (width == 0 && height == 0){
             alert('you have to select a valid area!');
         } else {
+        
+        // block the window
+        $("#blocking").css("display","block")
 
         var csrftoken = getCookie('csrftoken');
         $.ajaxSetup({
@@ -84,6 +87,9 @@
 
 
 {% block body %}
+<div id="blocking">
+    <img src="https://www.asus.com/support/images/support-loading.gif" style="width: 150px; margin-top:120px;">
+</div>
 
     <h1 style="margin-bottom: 40px;">{{ title }}</h1>
     <p><b>請問您認為下圖是否能夠透過框選局部區域，以改善其構圖？</b></p>
