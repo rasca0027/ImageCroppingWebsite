@@ -43,6 +43,12 @@
         window.location.href = {% url 'job' %};
     }
 
+    function send_no_crop(){
+    
+        $("#blocking").css("display","block")
+        window.location.href = "{% url 'no_crop' img.photo_id %}"; 
+    }
+
     function csrfSafeMethod(method) {
        // these HTTP methods do not require CSRF protection
         return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
@@ -55,7 +61,7 @@
         } else {
         
         // block the window
-        $("#blocking").css("display","block")
+        $("#blocking").css("display","block");
 
         var csrftoken = getCookie('csrftoken');
         $.ajaxSetup({
@@ -95,8 +101,8 @@
 <p><b>請問您認為下圖是否能夠透過框選局部區域，以改善其構圖？</b></p>
     <p> 若您認為下圖構圖完善，不須截圖，請點擊以下按鈕，本任務即告結束。</p>
     
-    <a href="{% url 'no_crop' img.photo_id %}">
-        <button style="margin-right: 40px;" class="btn btn-default">No, it does not need a crop!</button>
+    <a href="#">
+        <button style="margin-right: 40px;" class="btn btn-default" onclick="send_no_crop()">No, it does not need a crop!</button>
     </a>
     <!--<a href="#photo"><button class="btn btn-default">Yes</button></a>--> 
     <br><br>
