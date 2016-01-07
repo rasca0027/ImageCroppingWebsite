@@ -33,7 +33,7 @@ def dashboard_view(request):
     user = request.user
     jobs = Job.objects.filter(user=user)
     counts = len(jobs)
-    total_pay = user.crop_job_count * 5 + user.none_crop_job_count * 1
+    total_pay = user.crop_job_count * 3 + user.none_crop_job_count * 1
     return render(request, 'dashboard.html', {'user': user, 'jobs_done': counts, 'pay': total_pay})
 
 
