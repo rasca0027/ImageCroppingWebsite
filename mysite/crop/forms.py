@@ -2,10 +2,14 @@ from django import forms
 from .models import Worker
 
 class RegisterForm(forms.ModelForm):
+    confirm_password = forms.CharField(widget=forms.PasswordInput())
 
     class Meta:
         model = Worker
-        fields = ['username', 'password', 'email']
+        fields = ['username', 'email', 'password']
+        widgets = {
+            'password': forms.PasswordInput(),
+        }
 
     def __init__(self, *args, **kwargs):
         super(RegisterForm, self).__init__(*args, **kwargs)
