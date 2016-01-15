@@ -33,8 +33,9 @@ def dashboard_view(request):
     user = request.user
     jobs = Job.objects.filter(user=user)
     counts = len(jobs)
+    remaining_images = len(Image.objects.all()) - len(Crop.objects.all())
     total_pay = user.crop_job_count * 3 + user.none_crop_job_count * 1
-    return render(request, 'dashboard.html', {'user': user, 'jobs_done': counts, 'pay': total_pay})
+    return render(request, 'dashboard.html', {'user': user, 'jobs_done': counts, 'pay': total_pay, 'remaining_images': remaining_images})
 
 
 @login_required

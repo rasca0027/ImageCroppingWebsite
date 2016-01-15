@@ -6,8 +6,30 @@ class Command(BaseCommand):
     help = 'Dump the database into pickle file'
 
     def handle(self, *args, **options):
-        with open('report.pkl', 'w') as f:
+        print 'Generating report...'
+        print '========================================================'
+        print 'Number of registered users:', len(Worker.objects.all())
+        print
+        for worker in Worker.objects.all():
+            print '--------------------------'
+            print '  ID:', worker.username
+            print '  Email:', worker.email
+            print '  Accomplished jobs:', len(Job.objects.filter(user=worker))
+            print '  Pay:', worker.crop_job_count * 3 + worker.none_crop_job_count
+            #print worker.email
+        print
+        print '========================================================'
+        print 'Number of processed images:', len(Crop.objects.all())
+        print
+
+        count = 0
+        results = []
+        with open('cropping_results.pkl', 'wb') as f:
             for crop in Crop.objects.all():
+                if crop.need_crop:
+                    results.append((crop.img.photo_id, crop.img.url, crop.worker.username, crop.x1, crop.y1, crop.width, crop.height))
+                    count += 1
+                '''
                 photo_id = crop.img.photo_id
                 photo_url = crop.img.url
                 if not crop.need_crop:
@@ -30,5 +52,9 @@ class Command(BaseCommand):
                             'width': width,
                             'height': height}
                     pickle.dump(data, f)
+                '''
+            pickle.dump(results, f)
 
-    
+        print '========================================================'
+        print 'Number of cropped images:', count
+        print
