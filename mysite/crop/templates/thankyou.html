@@ -4,11 +4,12 @@
 {% block bg %}grey{% endblock %}
 
 {% block body %}
-    <img src="http://monsterthankyou.co.uk/wp-content/uploads/2014/04/ThankYou-71.jpg" width="400px" style="margin-top:30px;">
+    <img src="http://monsterthankyou.co.uk/wp-content/uploads/2014/04/ThankYou-71.jpg" alt="Thank you!!" width="400px" style="margin-top:30px;">
     <p id="thankyoutext">
-    感謝您寶貴的時間! <br>
-    您可以選擇跳到下一個任務，或是回到資訊頁面。 <br></p>
-    <a href="{% url 'dashboard' %}"><button class="btn btn-default">I'm Done!</button></a>
-    <a href="{% url 'job' %}" style="margin-left: 10px;"><button class="btn btn-default">Do Another Job</button></a>
-
+    感謝您寶貴的時間!<br>
+    您可以選擇跳到下一個任務，或是回到資訊頁面。<br></p>
+    <p>
+    <a href="{% url 'job' %}"><button class="btn btn-default">下一個任務</button></a>
+    <a href="{% url 'dashboard' %}"><button class="btn btn-default">資訊頁面</button></a>
+    </p>
 {% endblock %}

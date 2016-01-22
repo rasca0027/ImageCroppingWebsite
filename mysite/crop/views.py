@@ -33,7 +33,9 @@ def dashboard_view(request):
     user = request.user
     jobs = Job.objects.filter(user=user)
     counts = len(jobs)
-    return render(request, 'dashboard.html', {'user': user, 'jobs_done': counts})
+    remaining_images = len(Image.objects.all()) - len(Crop.objects.all())
+    total_pay = user.crop_job_count * 3 + user.none_crop_job_count * 1
+    return render(request, 'dashboard.html', {'user': user, 'jobs_done': counts, 'pay': total_pay, 'remaining_images': remaining_images})
 
 
 @login_required
@@ -47,13 +49,13 @@ def job_view(request):
     random_idx = random.randint(1, available_list.count())
     img = available_list[random_idx]
     # render the job page
-    title = 'image-cropping-' + str(img.photo_id) 
+    title = 'image-cropping-' + str(img.photo_id)
     # block the process, record order time
     img.count += 1
     img.block = True
     img.block_time = timezone.now()
     img.save()
-    # if not done, undo it, if done, create job object, add money 
+    # if not done, undo it, if done, create job object, add money
     resp = render(request, 'job.html', {'title': title, 'img': img})
     resp.set_cookie('start_time', timezone.now())
     return resp
@@ -71,7 +73,7 @@ def thankyou_view(request):
         end_time = timezone.now()
         image = Image.objects.get(photo_id=photo_id)
         title = "Crop Job-" + str(photo_id)
-        pay = 3 # TODO!
+        pay = 5 # TODO!
         job = Job(title=title, done=True, user=user, pay=pay,
                 start_time=start_time, end_time=end_time)
         job.save()
@@ -84,6 +86,7 @@ def thankyou_view(request):
         crops.save()
         # add money
         user.money += pay
+        user.crop_job_count += 1
         user.save()
         # unblock
         image.block = False
@@ -105,10 +108,11 @@ def no_crop(request, photo_id):
             start_time=start_time, end_time=end_time)
     job.save()
     job.image.add(image)
-    crops = Crop(img=image, worker=user, need_crop=False) 
+    crops = Crop(img=image, worker=user, need_crop=False)
     crops.save()
     # add money
     user.money += pay
+    user.none_crop_job_count += 1
     user.save()
     # unblock
     image.block = False
@@ -128,7 +132,7 @@ def recover_size(x1, y1, w, h, url):
         ry1 = int(y1) * scale
         rh = int(h) * scale
         rw = int(w) * scale
-        return rx1, ry1, rw, rh 
+        return rx1, ry1, rw, rh
     elif rheight > 800:
         scale = rheight / (800 + 0.0)
         print 'x1', x1, type(x1)
@@ -136,5 +140,5 @@ def recover_size(x1, y1, w, h, url):
         ry1 = int(y1) * scale
         rh = int(h) * scale
         rw = int(w) * scale
-        return rx1, ry1, rw, rh 
+        return rx1, ry1, rw, rh
 

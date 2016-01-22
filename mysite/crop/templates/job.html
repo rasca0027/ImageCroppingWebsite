@@ -22,7 +22,7 @@
         return cookieValue;
     }
     $(document).ready(function () {
-        
+
         $('img#photo').imgAreaSelect({
             handles: true,
             onSelectEnd: function (img, selection) {
@@ -44,9 +44,9 @@
     }
 
     function send_no_crop(){
-    
+
         $("#blocking").css("display","block")
-        window.location.href = "{% url 'no_crop' img.photo_id %}"; 
+        window.location.href = "{% url 'no_crop' img.photo_id %}";
     }
 
     function csrfSafeMethod(method) {
@@ -59,7 +59,7 @@
         } else if (width == 0 && height == 0){
             alert('you have to select a valid area!');
         } else {
-        
+
         // block the window
         $("#blocking").css("display","block");
 
@@ -78,12 +78,12 @@
                      'photo_id': {{ img.photo_id }} };
         var URL = {% url 'thanks' %};
         $.post(URL, data, function(response){
-                            if(response === 'success'){ 
-                                //alert('Yay!'); 
+                            if (response === 'success') {
+                                //alert('Yay!');
                                 window.location.href = {% url 'thanks' %};
-                            } else{ 
+                            } else {
                                 console.log('Error! :('); }
-        }); 
+        });
         }
     }
 </script>
@@ -93,29 +93,33 @@
 
 
 {% block body %}
-<div id="blocking">
-    <img src="https://www.asus.com/support/images/support-loading.gif" style="width: 150px; margin-top:120px;">
-</div>
+    <div id="blocking">
+        <img src="https://www.asus.com/support/images/support-loading.gif" style="width: 150px; margin-top:120px;">
+    </div>
 
-<h1 style="margin-bottom: 40px;">{{ title }}</h1>
-<p><b>請問您認為下圖是否能夠透過框選局部區域，以改善其構圖？</b></p>
-    <p> 若您認為下圖構圖完善，不須截圖，請點擊以下按鈕，本任務即告結束。</p>
-    
-    <a href="#">
-        <button style="margin-right: 40px;" class="btn btn-default" onclick="send_no_crop()">No, it does not need a crop!</button>
-    </a>
-    <!--<a href="#photo"><button class="btn btn-default">Yes</button></a>--> 
+    <p>若您是第一次參與，請參閱本<a href='https://db.tt/FoX4BCsc' target='blank'>說明</a></p>
+
+    <h1 style="margin-bottom: 40px;">{{ title }}</h1>
+    <p><b>請問您認為下圖是否能夠透過裁切局部區域，以改善其構圖？</b></p>
+    <p>
+        <ul>
+        <li>若您認為以下所示照片不須裁切，請點擊下方左邊按鈕。<br>
+            小提醒：<u>若您十秒內無法看出如何裁切較好的話，就請果斷地按下「不需裁切」的按鈕吧！</u><br>
+            <u>又或者您心中判定的裁切區域非常小的話(僅需裁切掉周圍很小範圍的區域)，也請選擇「不需裁切」。</u>
+        </li>
+        <li>或是您認為下圖需要裁切，請直接在下圖中，以滑鼠框選出您認為構圖最佳的區域，並於完成後點擊圖下方中間按鈕。</li>
+        <li>或是您也可以選擇不作答。欲跳過本任務，請點擊下方右邊按鈕。</li>
+        </ul>
+    </p>
+    <a href="#"><button style="margin-right: 20px;" class="btn btn-default" onclick="send_no_crop()">不需裁切</button></a>
+    <a href="#"><button style="margin-right: 20px;"class="btn btn-success" onclick="sendData()">需要裁切</button></a>
+    <a href="#photo"><button class="btn btn-default" onclick="reloadPage()">跳過此任務</button></a>
     <br><br>
 
     <img id="photo" src="{{ img.url }}" style="max-width: 800px; max-height: 800px;"> <br>
 
-
-    <a href="#"><button class="btn btn-success" onclick="sendData()">Yes, it looks better with this window!</button></a>
-    <p>或是您也可以選擇不作答。欲跳過本任務，請點擊以下按鈕。</p>
-    <a href="#photo"><button class="btn btn-default" onclick="reloadPage()">I'm not sure about this...</button></a>
-
     <br>
-    <p>說明：若本任務的圖片，經您判定不須截圖，我們將給予您NT1的酬金。<br>
-    若本任務的圖片，經您判定需要截圖，並框選出構圖最佳區域，我們將給予您NT3的酬金。</p>
+    <p>說明：若本任務的圖片，經您判定不須截圖，我們將給予您NT1的酬金。</p>
+    <p>若本任務的圖片，經您判定需要截圖，並框選出構圖最佳區域，我們將給予您NT3的酬金。</p>
 
 {% endblock %}
