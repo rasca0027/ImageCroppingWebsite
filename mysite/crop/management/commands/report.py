@@ -13,7 +13,7 @@ class Command(BaseCommand):
         for worker in Worker.objects.all():
             print '--------------------------'
             print '  ID:', worker.username
-            print '  Email:', worker.email
+            #print '  Email:', worker.email
             print '  Accomplished jobs:', len(Job.objects.filter(user=worker))
             print '  Pay:', worker.crop_job_count * 3 + worker.none_crop_job_count
             #print worker.email
@@ -27,7 +27,13 @@ class Command(BaseCommand):
         with open('cropping_results.pkl', 'wb') as f:
             for crop in Crop.objects.all():
                 if crop.need_crop:
-                    results.append((crop.img.photo_id, crop.img.url, crop.worker.username, crop.x1, crop.y1, crop.width, crop.height))
+                    x = crop.x1
+                    y = crop.y1
+                    if x < 0:
+                        x = 0
+                    if y < 0:
+                        y = 0
+                    results.append((crop.img.photo_id, crop.img.url, crop.worker.username, x, y, crop.width, crop.height))
                     count += 1
                 '''
                 photo_id = crop.img.photo_id
