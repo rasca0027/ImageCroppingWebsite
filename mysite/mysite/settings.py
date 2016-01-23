@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'crop',
     'bootstrapform',
+    'huey.djhuey',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -112,3 +113,14 @@ EMAIL_HOST_USER = 'xxx@gmail.com' # change this!
 EMAIL_HOST_PASSWORD = 'xxx' # change this!
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+#HUEY
+HUEY = {
+    'backend': 'huey.backends.sqlite_backend',  # required.
+    'name': 'testqueue',
+    'connection': {'location': 'testfilename'},
+    'always_eager': False, # Defaults to False when running via manage.py run_huey
+
+    # Options to pass into the consumer when running ``manage.py run_huey``
+    'consumer_options': {'workers': 1},
+}

@@ -62,6 +62,8 @@ There are two ways:
 Third, log in to your gmail account here: https://support.google.com/mail/answer/14257?hl=zh-Hant  
 and change settings of 允許安全性較低的應用程式存取您的帳戶.  
 
-Fourth, start the hue server.  
+Fourth, edit email content at `crop/send_mail.py`.  
 
-** You are all done! **
+Finally, start the hue server by `python manage.py run_huey`.  
+
+
